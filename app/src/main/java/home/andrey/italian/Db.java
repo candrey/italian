@@ -2,7 +2,7 @@ package home.andrey.italian;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.example.chilmankina.sql.Friend;
+import home.andrey.italian.Lessons;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -16,7 +16,7 @@ public class Db {
     Context context;
     Cursor cursor;
     SQLiteDatabase db;
-    List<Friend> mFriendsList;
+    List<Lessons> mFriendsList;
 
     public Db(Context context) {
         this.context = context;

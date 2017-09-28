@@ -9,13 +9,13 @@ public class DbHelper extends SQLiteOpenHelper {
 
     private static final String LOG_TAG = "my_tag";
 
-    public static final String TABLE_NAME = "friends";
+    public static final String TABLE_NAME = "lessons";
 
     public static final String KEY_ID = "_id";
     public static final String KEY_NAME = "name";
-    public static final String KEY_EMAIL = "email";
+    public static final String KEY_COMPLETE = "complete";
 
-    private static final String DATABASE_NAME = "friendsDB";
+    private static final String DATABASE_NAME = "italian";
     private static final int DATABASE_VERSION = 1;
 
     public DbHelper(Context context) {
@@ -28,21 +28,22 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL("create table " + TABLE_NAME +" ("
                 + KEY_ID + " integer primary key autoincrement,"
                 + KEY_NAME + " text,"
-                + KEY_EMAIL + " text" + ");");
+                + KEY_COMPLETE + " integer" + ");");
 
         ContentValues cv = new ContentValues();
 
-        cv.put(KEY_NAME, "Igor");
-        cv.put(KEY_EMAIL, "email1@email.com");
+        cv.put(KEY_NAME, "Урок 1");
+        cv.put(KEY_COMPLETE, 0);
         db.insert(TABLE_NAME, null, cv);
 
-        cv.put(KEY_NAME, "Dima");
-        cv.put(KEY_EMAIL, "email2@email.com");
+        cv.put(KEY_NAME, "Урок 2");
+        cv.put(KEY_COMPLETE, 0);
         db.insert(TABLE_NAME, null, cv);
 
-        cv.put(KEY_NAME, "Alex");
+/*        cv.put(KEY_NAME, "Alex");
         cv.put(KEY_EMAIL, "email3@email.com");
         db.insert(TABLE_NAME, null, cv);
+        */
     }
 
     @Override

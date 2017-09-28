@@ -29,6 +29,10 @@ public class Lessons {
         this.name = name;
     }
 
+/*    public int getColLes() {
+
+    }
+*/
     public Integer getComplete() {
         return complete;
     }

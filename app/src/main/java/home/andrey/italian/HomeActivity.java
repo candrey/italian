@@ -19,7 +19,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         btnLessons = (Button) findViewById(R.id.buttonLes);
         btnLessons.setOnClickListener(this);
-
     }
 
     @Override

@@ -33,6 +33,7 @@ public class Db {
 
         return cnt;
     }
+
     // метод для обновления email
     public void updateComplete(String name, String newEmail){
         db = dbHelper.getWritableDatabase();
@@ -46,6 +47,7 @@ public class Db {
         db = dbHelper.getWritableDatabase();
         db.delete(DbHelper.TABLE_NAME, DbHelper.KEY_ID + "=" + id, null);
     }
+
     // метод возвращающий коллекцию всех данных
     public List<Lessons> getLessons() {
         cursor = db.query(DbHelper.TABLE_NAME, null, null, null, null, null, null);

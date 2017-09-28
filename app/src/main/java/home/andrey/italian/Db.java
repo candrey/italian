@@ -16,7 +16,7 @@ public class Db {
     Context context;
     Cursor cursor;
     SQLiteDatabase db;
-    List<Lessons> mFriendsList;
+    List<Lessons> mLessonsList;
 
     public Db(Context context) {
         this.context = context;
@@ -34,10 +34,10 @@ public class Db {
         return cnt;
     }
     // метод для обновления email
-    public void updateEmail(String name, String newEmail){
+    public void updateComplete(String name, String newEmail){
         db = dbHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(DbHelper.KEY_EMAIL, "newemail@newemail.com");
+        cv.put(DbHelper.KEY_COMPLETE, 0);
         String[] args = new String[]{name};
         db.update(DbHelper.TABLE_NAME, cv, "name = ?", args);
     }
@@ -47,20 +47,20 @@ public class Db {
         db.delete(DbHelper.TABLE_NAME, DbHelper.KEY_ID + "=" + id, null);
     }
     // метод возвращающий коллекцию всех данных
-    public List<Friend> getFriends() {
+    public List<Lessons> getLessons() {
         cursor = db.query(DbHelper.TABLE_NAME, null, null, null, null, null, null);
-        mFriendsList = new ArrayList<Friend>();
+        mLessonsList = new ArrayList<Lessons>();
 
         if (cursor.moveToFirst()) {
 
             int idColInd = cursor.getColumnIndex(DbHelper.KEY_ID);
             int nameColInd = cursor.getColumnIndex(DbHelper.KEY_NAME);
-            int emailColInd = cursor.getColumnIndex(DbHelper.KEY_EMAIL);
+            int completeColInd = cursor.getColumnIndex(DbHelper.KEY_COMPLETE);
 
             do {
-                Friend friend = new Friend(cursor.getInt(idColInd),
-                        cursor.getString(nameColInd), cursor.getString(emailColInd));
-                mFriendsList.add(friend);
+                Lessons friend = new Lessons(cursor.getInt(idColInd),
+                        cursor.getString(nameColInd), cursor.getInt(completeColInd));
+                mLessonsList.add(friend);
             } while (cursor.moveToNext());
 
         } else {
@@ -69,7 +69,7 @@ public class Db {
 
         cursor.close();
 
-        return mFriendsList;
+        return mLessonsList;
 
     }
     // здесь закрываем все соединения с базой и класс-помощник

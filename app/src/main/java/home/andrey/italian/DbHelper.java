@@ -16,7 +16,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String KEY_COMPLETE = "complete";
 
     private static final String DATABASE_NAME = "italian";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     public DbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -37,6 +37,10 @@ public class DbHelper extends SQLiteOpenHelper {
         db.insert(TABLE_NAME, null, cv);
 
         cv.put(KEY_NAME, "Урок 2");
+        cv.put(KEY_COMPLETE, 0);
+        db.insert(TABLE_NAME, null, cv);
+
+        cv.put(KEY_NAME, "Урок 3");
         cv.put(KEY_COMPLETE, 0);
         db.insert(TABLE_NAME, null, cv);
 

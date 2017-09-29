@@ -17,14 +17,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
 
-        btnLessons = (Button) findViewById(R.id.buttonLes);
+        btnLessons = (Button) findViewById(R.id.buttonLessonss);
         btnLessons.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.buttonLes:
+            case R.id.buttonLessons
                 Intent intent = new Intent(this, LessonsActivity.class);
                 startActivity(intent);
                 break;

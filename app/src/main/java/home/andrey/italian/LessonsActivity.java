@@ -6,14 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-//import home.andrey.italian.Db;
+import home.andrey.italian.Db;
 
 public class LessonsActivity extends AppCompatActivity implements View.OnClickListener {
 
     LinearLayout lMain;
     int wrapContent = LinearLayout.LayoutParams.WRAP_CONTENT;
-    private Db mDbAdapter;
-    private int mCursor;
+    Db mDbAdapter;
+    int mCursor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

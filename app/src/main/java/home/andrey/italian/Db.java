@@ -18,16 +18,16 @@ public class Db {
     SQLiteDatabase db;
     List<Lessons> mLessonsList;
 
-    public Db(Context context) {
+    private Db(Context context) {
         this.context = context;
         dbHelper = new DbHelper(context);
     }
     // возвращает количество записей в таблице
-    public int getItemCount() {
+    int getItemCount() {
 
         db = dbHelper.getReadableDatabase();
 
-        cursor = db.query(DbHelper.TABLE_NAME, null, null, null, null, null, null);
+        cursor = db.query(DbHelper."lessons", null, null, null, null, null, null);
         int cnt = cursor.getCount();
         cursor.close();
 

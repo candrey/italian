@@ -19,15 +19,14 @@ public class DbHelper extends SQLiteOpenHelper {
     static final String dbName="italian";
     private static final int dbVersion = 1;
     static final String lessonsTable="lessons";
-    static final String colLessonsID="id";
-    static final String colLessonsName="name";
-    static final String colLessonsComplete="complete";
-
     static final String lessonTable="lesson";
-    static final String colLessonID="id";
-    static final String colLessonName="name";
-    static final String colLessonDescription="description";
-    static final String colLessonContent="content";
+    static final String colID="id";
+    static final String colName="name";
+    static final String colComplete="complete";
+        //static final String colLessonID="id";
+    //static final String colLessonName="name";
+    static final String colDescription="description";
+    static final String colContent="content";
     static final String colForegID="foreg_id";
 
     static final String viewLesson="ViewLesson";
@@ -43,26 +42,38 @@ public class DbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL("create table " + lessonTable + " (" +
-                colLessonID + " integer primary key autoincrement, " +
-                colLessonName + " text, " +
-                colLessonDescription + " text, " +
-                colLessonContent + " text, " +
+                colID + " integer primary key autoincrement, " +
+                colName + " text, " +
+                colDescription + " text, " +
+                colContent + " text, " +
                 colForegID + " integer not null, " +
                 "foreign key(" + colForegID + ") references " +
-                lessonsTable + "(" + colLessonsID +") " +
-                "on update action");"
+                lessonsTable + "(" + colID +"));" //+
+                // " on update action);"
         );
 
         db.execSQL("create table " + lessonsTable + " (" +
-                colLessonsID + " integer primary key autoincrement, " +
-                colLessonsName + " text, " +
-                colLessonsComplete + " integer );"
+                colID + " integer primary key autoincrement, " +
+                colName + " text, " +
+                colComplete + " integer );"
         );
 
-        db.execSQL(""
+       /* db.execSQL(""
         );
     }
+*/
 
+        ContentValues cv = new ContentValues();
+
+        cv.put(colName, "Урок 1");
+        cv.put(colComplete, 1);
+        db.insert(lessonsTable, null, cv);
+
+        cv.put(colName, "Урок 2");
+        cv.put(colComplete, 0);
+        db.insert(lessonsTable, null, cv);
+
+        cv.put(colName, "");
 /*
     @Override
     public void onCreate(SQLiteDatabase db) {

@@ -12,13 +12,15 @@ import android.util.Log;
 public class Db {
 
     private static final String LOG_TAG = "my_tag";
+    private static Cursor cursor;
+    private static SQLiteDatabase db;
     DbHelper dbHelper;
     Context context;
-    Cursor cursor;
-    SQLiteDatabase db;
+    //Cursor cursor;
+    //SQLiteDatabase db;
     List<Lessons> mLessonsList;
 
-    private Db(Context context) {
+    Db(Context context) {
         this.context = context;
         dbHelper = new DbHelper(context);
     }
@@ -27,13 +29,13 @@ public class Db {
 
         db = dbHelper.getReadableDatabase();
 
-        cursor = db.query(DbHelper."lessons", null, null, null, null, null, null);
+        cursor = db.query(DbHelper.lessonsTable, null, null, null, null, null, null);
         int cnt = cursor.getCount();
         cursor.close();
 
         return cnt;
     }
-
+/*
     // метод для обновления email
     public void updateComplete(String name, String newEmail){
         db = dbHelper.getWritableDatabase();
@@ -47,17 +49,50 @@ public class Db {
         db = dbHelper.getWritableDatabase();
         db.delete(DbHelper.TABLE_NAME, DbHelper.KEY_ID + "=" + id, null);
     }
+*/
+    public static void getLesson() {
+
+        Log.d(LOG_TAG, "---INNER JOIN with rawQuery---");
+        String sqlQuery = "select lessons.name as Name, lesson.description as Description, "
+                + "lesson.content as Content "
+                + "from lessons "
+                + "inner join lesson "
+                + "on lesson.foreg_id = lessons.id;";
+                //+ "where salary > ?";
+//        select lessons.name as Name, lesson.description as Description,lesson.content as Content
+//        from lessons inner join lesson on lesson.foreg_id = lessons.id;
+        cursor = db.rawQuery(sqlQuery, null);//, new String[]{"40000"});
+        //Log.d(cursor);
+        logCursor(cursor);
+        cursor.close();
+        Log.d(LOG_TAG, "--- ---");
+    }
+
+    static void logCursor(Cursor cursor) {
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                String str;
+                do {
+                    str = "";
+                    for (String cn : cursor.getColumnNames()) {
+                        str = str.concat(cn + " = " + cursor.getString(cursor.getColumnIndex(cn)) + "; ");
+                    }
+                    Log.d(LOG_TAG, str);
+                } while (cursor.moveToNext());
+            }
+        } else Log.d(LOG_TAG, "Cursor is null");
+    }
 
     // метод возвращающий коллекцию всех данных
     public List<Lessons> getLessons() {
-        cursor = db.query(DbHelper.TABLE_NAME, null, null, null, null, null, null);
+        cursor = db.query(DbHelper.lessonsTable, null, null, null, null, null, null);
         mLessonsList = new ArrayList<Lessons>();
 
         if (cursor.moveToFirst()) {
 
-            int idColInd = cursor.getColumnIndex(DbHelper.KEY_ID);
-            int nameColInd = cursor.getColumnIndex(DbHelper.KEY_NAME);
-            int completeColInd = cursor.getColumnIndex(DbHelper.KEY_COMPLETE);
+            int idColInd = cursor.getColumnIndex(DbHelper.colID);
+            int nameColInd = cursor.getColumnIndex(DbHelper.colName);
+            int completeColInd = cursor.getColumnIndex(DbHelper.colComplete);
 
             do {
                 Lessons friend = new Lessons(cursor.getInt(idColInd),

@@ -17,7 +17,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String KEY_COMPLETE = "complete";
 */
     static final String dbName="italian";
-    private static final int dbVersion = 1;
+    private static final int dbVersion = 4;
     static final String lessonsTable="lessons";
     static final String lessonTable="lesson";
     static final String colID="id";
@@ -42,18 +42,18 @@ public class DbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL("create table " + lessonTable + " (" +
-                colID + " integer primary key autoincrement, " +
-                colName + " text, " +
-                colDescription + " text, " +
-                colContent + " text, " +
-                colForegID + " integer not null, " +
-                "foreign key(" + colForegID + ") references " +
-                lessonsTable + "(" + colID +"));" //+
+                        colID + " integer primary key autoincrement, " +
+                        //colName + " text, " +
+                        colDescription + " text, " +
+                        colContent + " text, " +
+                        colForegID + " integer not null);" //+
+                //              "foreign key(" + colForegID + ") references " +
+                //             lessonsTable + "(" + colID +"));" //+
                 // " on update action);"
         );
 
         db.execSQL("create table " + lessonsTable + " (" +
-                colID + " integer primary key autoincrement, " +
+                colID + " integer primary key, " +
                 colName + " text, " +
                 colComplete + " integer );"
         );
@@ -65,15 +65,35 @@ public class DbHelper extends SQLiteOpenHelper {
 
         ContentValues cv = new ContentValues();
 
+        cv.put(colID, 1);
         cv.put(colName, "Урок 1");
         cv.put(colComplete, 1);
         db.insert(lessonsTable, null, cv);
 
+        cv.put(colID, 2);
         cv.put(colName, "Урок 2");
         cv.put(colComplete, 0);
         db.insert(lessonsTable, null, cv);
 
-        cv.put(colName, "");
+        cv.put(colID, 3);
+        cv.put(colName, "Урок 3");
+        cv.put(colComplete, 0);
+        db.insert(lessonsTable, null, cv);
+
+        cv.put(colDescription, "Это урок 1");
+        cv.put(colContent, "Здесь много текста\nхо");
+        cv.put(colForegID, 1);
+        db.insert(lessonTable, null, cv);
+
+        cv.put(colDescription, "Это урок 2");
+        cv.put(colContent, "И здесь много текста\nхо хо");
+        cv.put(colForegID, 2);
+        db.insert(lessonTable, null, cv);
+
+        cv.put(colDescription, "Это урок 3");
+        cv.put(colContent, "Здесь ещё больше текста\nхо хо хо");
+        cv.put(colForegID, 3);
+        db.insert(lessonTable, null, cv);
 /*
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -111,10 +131,11 @@ public class DbHelper extends SQLiteOpenHelper {
         db.insert("lesson", null, cv);
     }
 */
+    }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS lessons; "
-        + "DROP TABLE IF EXISTS lesson;");
+        db.execSQL("DROP TABLE IF EXISTS " + lessonsTable + ";"
+        + "DROP TABLE IF EXISTS " + lessonTable + ";");
         this.onCreate(db);
     }
 

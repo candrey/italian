@@ -40,6 +40,7 @@ public class LessonsActivity extends AppCompatActivity implements View.OnClickLi
             button.setOnClickListener(this);
             button.setId(i);
             lMain.addView(button, -1, 150);
+            Db.getLesson();
         }
 
     }

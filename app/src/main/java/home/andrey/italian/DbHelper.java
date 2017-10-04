@@ -70,6 +70,8 @@ public class DbHelper extends SQLiteOpenHelper {
         cv.put(colComplete, 0);
         db.insert(lessonsTable, null, cv);
 
+        cv.clear();
+
         cv.put(colDescription, "Это урок 1");
         cv.put(colContent, "Здесь много текста");
         cv.put(colLessonsID, 1);

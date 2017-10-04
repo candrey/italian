@@ -51,7 +51,7 @@ public class Db {
         db.delete(DbHelper.TABLE_NAME, DbHelper.KEY_ID + "=" + id, null);
     }
 */
-    void getLesson() {
+    public void getLesson() {
 
         db = dbHelper.getReadableDatabase();
 

@@ -1,12 +1,12 @@
 package home.andrey.italian;
 
-import android.database.Cursor;
+//import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import home.andrey.italian.Db;
+//import home.andrey.italian.Db;
 
 public class LessonsActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -40,7 +40,7 @@ public class LessonsActivity extends AppCompatActivity implements View.OnClickLi
             button.setOnClickListener(this);
             button.setId(i);
             lMain.addView(button, -1, 150);
-            Db.getLesson();
+            mDbAdapter.getLesson();
         }
 
     }

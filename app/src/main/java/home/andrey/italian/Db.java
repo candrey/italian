@@ -56,20 +56,12 @@ public class Db {
         db = dbHelper.getReadableDatabase();
 
         Log.d(LOG_TAG, "---INNER JOIN with rawQuery---");
-        /*
-        String sqlQuery = "select lessons.name as Name, lesson.description as Description, "
-                + "lesson.content as Content "
-                + "from lessons "
-                + "inner join lesson "
-                + "on lesson.lessons_id = lessons.id;";
-                //+ "where salary > ?";
-                */
-//        select lessons.name as Name, lesson.description as Description,lesson.content as Content
-//        from lessons inner join lesson on lesson.foreg_id = lessons.id;
-        cursor = db.query(DbHelper.lessonTable, new String[] {"description", "content"},
-                "lessons_id = ?", new String[] {"1"}, null, null, null);
-        //String sqlQuery = "SELECT * FROM lesson WHERE lessons_id = ?";
-        //cursor = db.rawQuery(sqlQuery, new String[] {"1"});//, new String[]{"40000"});
+
+        cursor = db.query(DbHelper.lessonTable,
+                new String[] {"description", "content"},
+                "lessons_id = ? or lessons_id = ?",
+                new String[] {"1", "3"},
+                null, null, null);
         Log.d(LOG_TAG, String.valueOf(cursor.moveToFirst()));
         Log.d(LOG_TAG, String.valueOf(cursor.getCount()));
         logCursor(cursor);

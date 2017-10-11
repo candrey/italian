@@ -31,14 +31,15 @@ public class LessonsActivity extends AppCompatActivity implements View.OnClickLi
         for(int i = 0; i < mCursor; i++){
             Button button = new Button(this);
             button.setText(mDbAdapter.getLessons().get(i).getName()); //getComplete().toString());
-            if (mDbAdapter.getLessons().get(i).getComplete() == 0) {
+            //button.setId(i);
+           /* if (mDbAdapter.getLessons().get(i).getComplete() == 0) {
                 button.setEnabled(false);
             }
             else {
                 button.setEnabled(true);
-            }
+            }*/
+            button.setId(i+1);
             button.setOnClickListener(this);
-            button.setId(i);
             lMain.addView(button, -1, 150);
             mDbAdapter.getLesson();
         }

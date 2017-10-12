@@ -1,6 +1,7 @@
 package home.andrey.italian;
 
 //import android.database.Cursor;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -48,6 +49,9 @@ public class LessonsActivity extends AppCompatActivity implements View.OnClickLi
         //View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            ((Button) view).setText(Integer.toString(view.getId()));
+            //((Button) view).setText(Integer.toString(view.getId()));
+            Intent intent = new Intent(this, LessonActivity.class);
+            intent.putExtra("lessonsid",view.getId());
+            startActivity(intent);
         }
 }

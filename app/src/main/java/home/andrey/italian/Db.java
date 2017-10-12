@@ -15,7 +15,7 @@ public class Db {
     private static final String LOG_TAG = "my_tag";
     private static Cursor cursor;
     private static SQLiteDatabase db;
-    private DbHelper dbHelper;
+    private static DbHelper dbHelper;
     private Context context;
     //Cursor cursor;
     //SQLiteDatabase db;
@@ -51,7 +51,7 @@ public class Db {
         db.delete(DbHelper.TABLE_NAME, DbHelper.KEY_ID + "=" + id, null);
     }
 */
-    public void getLesson() {
+    public static void getLesson(int lessonid) {
 
         db = dbHelper.getReadableDatabase();
 
@@ -59,14 +59,15 @@ public class Db {
 
         cursor = db.query(DbHelper.lessonTable,
                 new String[] {"description", "content"},
-                "lessons_id = ? or lessons_id = ?",
-                new String[] {"1", "3"},
+                "lessons_id = ?",
+                new String[] {String.valueOf(lessonid)},
                 null, null, null);
         Log.d(LOG_TAG, String.valueOf(cursor.moveToFirst()));
         Log.d(LOG_TAG, String.valueOf(cursor.getCount()));
         logCursor(cursor);
         cursor.close();
         Log.d(LOG_TAG, "--- ---");
+        return cursor.getString();
     }
 
     private static void logCursor(Cursor cursor) {
